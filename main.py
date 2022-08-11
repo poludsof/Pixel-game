@@ -24,8 +24,6 @@ def collisions(man, obstacles):
     return True
 
 
-
-
 if __name__ == '__main__':
     pygame.init()
 
