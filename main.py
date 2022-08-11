@@ -30,6 +30,8 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     game_active = False
 
+    # master comment
+
     font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\ddd.otf", 50)
     test_font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\pizza.TTF", 30)
     test2_font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\pizza.TTF", 20)
