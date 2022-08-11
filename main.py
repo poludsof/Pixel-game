@@ -27,6 +27,8 @@ def collisions(man, obstacles):
 if __name__ == '__main__':
     pygame.init()
 
+    # testing branch comment
+
     clock = pygame.time.Clock()
     game_active = False
 
