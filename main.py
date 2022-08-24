@@ -24,15 +24,23 @@ def collisions(man, obstacles):
     return True
 
 
+def display_score(score_value, num_function):
+    if num_function == 1:
+        score_value //= 100
+        score = test_font.render("score is  " + str(score_value), False, "paleturquoise")
+        score_rect = score.get_rect(center=(250, 245))
+        screen.blit(score, score_rect)
+    else:
+        score_value //= 100
+        score = font.render("score: " + str(score_value), True, (74, 171, 134))
+        screen.blit(score, (160, 50))
+
+
 if __name__ == '__main__':
     pygame.init()
 
-    # testing branch comment
-
     clock = pygame.time.Clock()
     game_active = False
-
-    # master comment
 
     font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\ddd.otf", 50)
     test_font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\pizza.TTF", 30)
@@ -71,16 +79,13 @@ if __name__ == '__main__':
     score_text = font.render("game over", False, 15)
     score_text_rect = score_text.get_rect(center=(250, 50))
 
-    sec_score_text = test_font.render("dont cry", False, (74, 171, 134))
-    sec_score_text_rect = sec_score_text.get_rect(center=(250, 250))
-
-    th_score_text = test2_font.render("to  start again  press  LSHIFT", False, (74, 171, 134))
-    th_score_text_rect = th_score_text.get_rect(center=(250, 275))
-
-    score = 0
+    restart_text = test2_font.render("to  start again  press  LSHIFT", False, (74, 171, 134))
+    restart_text_rect = restart_text.get_rect(center=(250, 275))
 
     timer_flowers = pygame.USEREVENT + 1
     pygame.time.set_timer(timer_flowers, 1000)
+
+    score_value = 0
 
     while True:
         for event in pygame.event.get():
@@ -95,12 +100,16 @@ if __name__ == '__main__':
             else:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                     game_active = True
+                    score_value = 0
                     flower_rect.left = 500
             if event.type == timer_flowers and game_active:
-                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(600, 800), 250)))
+                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(650, 800), 250)))
 
         screen.fill(background_color)
         if game_active:
+            display_score(score_value, 0)
+            score_value += 1
+
             cat_gravity += 1
             cat_rect.y += cat_gravity
 
@@ -114,19 +123,17 @@ if __name__ == '__main__':
             obstacle_rect_list = obstacle(obstacle_rect_list)
 
             game_active = collisions(cat_rect, obstacle_rect_list)
-            score += 1
-
         else:
             screen.blit(first_screen, first_screen_rect)
             obstacle_rect_list.clear()
 
-            if score == 0:
+            if score_value == 0:
                 screen.blit(game_name, game_name_rect)
                 screen.blit(message_text, message_text_rect)
             else:
+                display_score(score_value, 1)
                 screen.blit(score_text, score_text_rect)
-                screen.blit(sec_score_text, sec_score_text_rect)
-                screen.blit(th_score_text, th_score_text_rect)
+                screen.blit(restart_text, restart_text_rect)
 
         pygame.display.update()
         clock.tick(60)
