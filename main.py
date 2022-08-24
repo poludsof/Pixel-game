@@ -4,17 +4,18 @@ from sys import exit
 from random import randint
 
 
-def obstacle(obstacle_list):
+def obstacle(obstacle_list, score):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
             obstacle_rect.x -= 5
-
+            if obstacle_rect.x + 49 < 0:
+                score += 1
             screen.blit(flower_surface, obstacle_rect)
 
         obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -50]
-        return obstacle_list
+        return obstacle_list, score
     else:
-        return []
+        return [], score
 
 
 def collisions(man, obstacles):
@@ -27,12 +28,10 @@ def collisions(man, obstacles):
 
 def display_score(score_value, num_function):
     if num_function == 1:
-        score_value //= 100
         score = test_font.render("score is  " + str(score_value), False, "paleturquoise")
         score_rect = score.get_rect(center=(250, 245))
         screen.blit(score, score_rect)
     else:
-        score_value //= 100
         score = font.render("score: " + str(score_value), True, (74, 171, 134))
         screen.blit(score, (160, 50))
 
@@ -108,7 +107,6 @@ if __name__ == '__main__':
         screen.fill(background_color)
         if game_active:
             display_score(score_value, 0)
-            score_value += 1
 
             cat_gravity += 1
             cat_rect.y += cat_gravity
@@ -120,7 +118,7 @@ if __name__ == '__main__':
             screen.blit(cat_surface, cat_rect)
             screen.blit(grass_surface, grass_rect)
 
-            obstacle_rect_list = obstacle(obstacle_rect_list)
+            obstacle_rect_list, score_value = obstacle(obstacle_rect_list, score_value)
 
             game_active = collisions(cat_rect, obstacle_rect_list)
         else:
