@@ -1,4 +1,5 @@
 import pygame
+import os
 from sys import exit
 from random import randint
 
@@ -42,31 +43,30 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     game_active = False
 
-    font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\ddd.otf", 50)
-    test_font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\pizza.TTF", 30)
-    test2_font = pygame.font.Font(r"C:\Users\spolu\PycharmProjects\pygame\font\pizza.TTF", 20)
+    font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/ddd.otf"), 50)
+    test_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 30)
+    test2_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 20)
 
-    flower_surface = pygame.image.load(r"C:\Users\spolu\PycharmProjects\pygame\venv\image\flower.png")
+    flower_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/flower.png"))
     flower_surface = pygame.transform.rotozoom(flower_surface, 0, 1.5)
     flower_rect = flower_surface.get_rect(bottomright=(400, 250))
 
     obstacle_rect_list = []
 
-    cat_surface = pygame.image.load(r"C:\Users\spolu\PycharmProjects\pygame\venv\image\pixil-frame-0.png")
+    cat_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/pixil-frame-0.png"))
     cat_rect = cat_surface.get_rect(topleft=(70, 200))
     cat_gravity = 0
 
-    grass_surface = pygame.image.load(r"C:\Users\spolu\PycharmProjects\pygame\venv\image\grass.png")
+    grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
     grass_rect = grass_surface.get_rect(topleft=(0, 250))
 
-    # grass_surface = pygame.display.set_mode((400, 300))
     screen = pygame.display.set_mode((500, 300))
 
     pygame.display.set_caption("idk")
     background_color = "paleturquoise"
 
     # intro screen
-    first_screen = pygame.image.load(r"C:\Users\spolu\PycharmProjects\pygame\venv\image\screen.png")
+    first_screen = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/screen.png"))
     first_screen = pygame.transform.scale2x(first_screen)
     first_screen_rect = first_screen.get_rect(topleft=(-110, -50))
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
                     score_value = 0
                     flower_rect.left = 500
             if event.type == timer_flowers and game_active:
-                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(650, 800), 250)))
+                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(650, 750), 250)))
 
         screen.fill(background_color)
         if game_active:
