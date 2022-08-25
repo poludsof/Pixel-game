@@ -7,7 +7,7 @@ from random import randint
 def obstacle(obstacle_list, score):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
-            obstacle_rect.x -= 5
+            obstacle_rect.x -= 5 + score / 2
             if obstacle_rect.x + 49 < 0:
                 score += 1
             screen.blit(flower_surface, obstacle_rect)
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     screen = pygame.display.set_mode((500, 300))
 
-    pygame.display.set_caption("idk")
+    pygame.display.set_caption("pixel cat")
     background_color = "paleturquoise"
 
     # intro screen
@@ -85,7 +85,6 @@ if __name__ == '__main__':
     pygame.time.set_timer(timer_flowers, 1000)
 
     score_value = 0
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -102,7 +101,7 @@ if __name__ == '__main__':
                     score_value = 0
                     flower_rect.left = 500
             if event.type == timer_flowers and game_active:
-                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(650, 750), 250)))
+                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(625, 800), 250)))
 
         screen.fill(background_color)
         if game_active:
