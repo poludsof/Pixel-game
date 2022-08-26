@@ -28,12 +28,12 @@ def collisions(man, obstacles):
 
 def display_score(score_value, num_function):
     if num_function == 1:
-        score = test_font.render("score is  " + str(score_value), False, "paleturquoise")
-        score_rect = score.get_rect(center=(250, 245))
+        score = font_70.render("score is  " + str(score_value), False, "paleturquoise")
+        score_rect = score.get_rect(center=(400, 375))
         screen.blit(score, score_rect)
     else:
-        score = font.render("score: " + str(score_value), True, (74, 171, 134))
-        screen.blit(score, (160, 50))
+        score = font_70.render("score " + str(score_value), True, (74, 171, 134))
+        screen.blit(score, (270, 50))
 
 
 if __name__ == '__main__':
@@ -42,47 +42,50 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     game_active = False
 
-    font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/ddd.otf"), 50)
-    test_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 30)
-    test2_font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 20)
+    #font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/ddd.otf"), 70)
+    font_30 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 30)
+    font_70 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 70)
+    font_100 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 100)
 
     flower_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/flower.png"))
-    flower_surface = pygame.transform.rotozoom(flower_surface, 0, 1.5)
+    flower_surface = pygame.transform.scale(flower_surface, (60, 70))
     flower_rect = flower_surface.get_rect(bottomright=(400, 250))
 
     obstacle_rect_list = []
 
     cat_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/pixil-frame-0.png"))
-    cat_rect = cat_surface.get_rect(topleft=(70, 200))
+    cat_surface = pygame.transform.scale(cat_surface, (80, 110))
+    cat_rect = cat_surface.get_rect(center=(150, -100))
     cat_gravity = 0
 
     grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
-    grass_rect = grass_surface.get_rect(topleft=(0, 250))
+    grass_surface = pygame.transform.scale(grass_surface, (800, 135))
+    grass_rect = grass_surface.get_rect(topleft=(0, 340))
 
-    screen = pygame.display.set_mode((500, 300))
+    screen = pygame.display.set_mode((800, 450))
 
     pygame.display.set_caption("pixel cat")
-    background_color = "paleturquoise"
+    background_color = (171, 216, 255)
 
     # intro screen
     first_screen = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/screen.png"))
-    first_screen = pygame.transform.scale2x(first_screen)
-    first_screen_rect = first_screen.get_rect(topleft=(-110, -50))
+    first_screen = pygame.transform.scale(first_screen, (1100, 650))
+    first_screen_rect = first_screen.get_rect(center=(390, 230))
 
-    game_name = font.render("pixel cat", False, (0, 0, 0))
-    game_name_rect = game_name.get_rect(center=(250, 50))
+    game_name = font_100.render("pixel cat", False, (0, 0, 0))
+    game_name_rect = game_name.get_rect(center=(410, 70))
 
-    message_text = test_font.render("to  start press   LSHIFT ", False, (74, 171, 134))
-    message_text_rect = message_text.get_rect(center=(250, 265))
+    message_text = font_30.render("to  start press    LEFT  SHIFT ", False, (74, 171, 134))
+    message_text_rect = message_text.get_rect(center=(400, 405))
 
-    score_text = font.render("game over", False, 15)
-    score_text_rect = score_text.get_rect(center=(250, 50))
+    score_text = font_100.render("game over", False, 15)
+    score_text_rect = score_text.get_rect(center=(400, 70))
 
-    restart_text = test2_font.render("to  start again  press  LSHIFT", False, (74, 171, 134))
-    restart_text_rect = restart_text.get_rect(center=(250, 275))
+    restart_text = font_30.render("to  start again  press   LEFT  SHIFT", False, (74, 171, 134))
+    restart_text_rect = restart_text.get_rect(center=(400, 420))
 
     timer_flowers = pygame.USEREVENT + 1
-    pygame.time.set_timer(timer_flowers, 1000)
+    pygame.time.set_timer(timer_flowers, 1050)
 
     score_value = 0
     while True:
@@ -93,15 +96,15 @@ if __name__ == '__main__':
             if game_active:
                 # if event.type == pygame.MOUSEMOTION:
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE and cat_rect.bottom >= 250:
-                        cat_gravity = -20
+                    if event.key == pygame.K_SPACE and cat_rect.bottom >= 340:
+                        cat_gravity = -23
             else:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                     game_active = True
                     score_value = 0
-                    flower_rect.left = 500
+                    flower_rect.left = 800
             if event.type == timer_flowers and game_active:
-                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(625, 800), 250)))
+                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(825, 1000), 340)))
 
         screen.fill(background_color)
         if game_active:
@@ -110,8 +113,8 @@ if __name__ == '__main__':
             cat_gravity += 1
             cat_rect.y += cat_gravity
 
-            if cat_rect.bottom >= 250:
-                cat_rect.bottom = 250
+            if cat_rect.bottom >= 340:
+                cat_rect.bottom = 340
 
             screen.blit(flower_surface, flower_rect)
             screen.blit(cat_surface, cat_rect)
