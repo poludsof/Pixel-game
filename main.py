@@ -3,6 +3,17 @@ import os
 from sys import exit
 from random import randint
 
+def animation():
+    global player_index, player_surface
+
+    if player_rect.bottom < 340:
+        player_surface = player_jump
+    else:
+        player_index += 0.1
+        if player_index >= 2: player_index = 0
+        player_surface = player_walk[int(player_index)]
+
+
 def obstacle(obstacle_list, score):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
@@ -52,10 +63,17 @@ if __name__ == '__main__':
 
     obstacle_rect_list = []
 
-    player_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/pixil-frame-0.png"))
-    player_surface = pygame.transform.scale(player_surface, (80, 110))
-    player_rect = player_surface.get_rect(center=(150, -100))
+    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk1.png"))
+    player_walk1 = pygame.transform.scale(player_walk1, (80, 110))
+    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk2.png"))
+    player_walk2 = pygame.transform.scale(player_walk2, (80, 110))
+    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_jump.png"))
+    player_jump = pygame.transform.scale(player_jump, (80, 110))
+    player_rect = player_walk1.get_rect(center=(150, -100))
     player_gravity = 0
+    player_index = 0
+    player_walk = [player_walk1, player_walk2]
+    player_surface = player_walk[player_index]
 
     grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
     grass_surface = pygame.transform.scale(grass_surface, (800, 135))
@@ -116,6 +134,7 @@ if __name__ == '__main__':
                 player_rect.bottom = 340
 
             screen.blit(flower_surface, flower_rect)
+            animation()
             screen.blit(player_surface, player_rect)
             screen.blit(grass_surface, grass_rect)
 
