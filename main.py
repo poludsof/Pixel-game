@@ -63,11 +63,18 @@ if __name__ == '__main__':
 
     obstacle_rect_list = []
 
-    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk1.png"))
+    intro_cat = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk1.png"))
+    intro_cat = pygame.transform.scale(intro_cat, (100, 150))
+    intro_cat_rect = intro_cat.get_rect(center=(280, 230))
+    intro_caterpillar = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk1.png"))
+    intro_caterpillar = pygame.transform.scale(intro_caterpillar, (130, 70))
+    intro_caterpillar_rect = intro_caterpillar.get_rect(center=(480, 240))
+
+    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk1.png"))
     player_walk1 = pygame.transform.scale(player_walk1, (80, 110))
-    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk2.png"))
+    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk2.png"))
     player_walk2 = pygame.transform.scale(player_walk2, (80, 110))
-    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_jump.png"))
+    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_jump.png"))
     player_jump = pygame.transform.scale(player_jump, (80, 110))
     player_rect = player_walk1.get_rect(center=(150, -100))
     player_gravity = 0
@@ -81,24 +88,30 @@ if __name__ == '__main__':
 
     screen = pygame.display.set_mode((800, 450))
 
-    pygame.display.set_caption("pixel cat")
+    pygame.display.set_caption("pixel game")
     background_color = (171, 216, 255)
 
     # intro screen
     first_screen = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/screen.png"))
-    first_screen = pygame.transform.scale(first_screen, (1100, 650))
-    first_screen_rect = first_screen.get_rect(center=(390, 230))
+    first_screen = pygame.transform.scale(first_screen, (800, 440))
+    first_screen_rect = first_screen.get_rect(center=(400, 230))
 
-    game_name = font_100.render("pixel cat", False, (0, 0, 0))
+    game_name = font_100.render("pixe l game", False, (0, 0, 0))
     game_name_rect = game_name.get_rect(center=(410, 70))
 
-    message_text = font_30.render("to  start press    LEFT  SHIFT ", False, (74, 171, 134))
-    message_text_rect = message_text.get_rect(center=(400, 405))
+    message_text = font_30.render("to   start  playing   select   player", False, (98, 169, 199))
+    message_text_rect = message_text.get_rect(center=(400, 125))
+
+    cat_text = font_30.render("press F", False, (0, 0, 0))
+    cat_text_rect = cat_text.get_rect(center=(285, 325))
+
+    caterpillar_text = font_30.render("press A", False, (0, 0, 0))
+    caterpillar_text_rect = caterpillar_text.get_rect(center=(480, 325))
 
     score_text = font_100.render("game over", False, 15)
     score_text_rect = score_text.get_rect(center=(400, 70))
 
-    restart_text = font_30.render("to  start again  press   LEFT  SHIFT", False, (74, 171, 134))
+    restart_text = font_30.render("to  start again  press   LEFT  SHIFT", False, (0, 0, 0))
     restart_text_rect = restart_text.get_rect(center=(400, 420))
 
     timer_flowers = pygame.USEREVENT + 1
@@ -121,7 +134,7 @@ if __name__ == '__main__':
                     score_value = 0
                     flower_rect.left = 800
             if event.type == timer_flowers and game_active:
-                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(825, 1000), 340)))
+                obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(900, 1000), 340)))
 
         screen.fill(background_color)
         if game_active:
@@ -142,13 +155,19 @@ if __name__ == '__main__':
 
             game_active = collisions(player_rect, obstacle_rect_list)
         else:
-            screen.blit(first_screen, first_screen_rect)
             obstacle_rect_list.clear()
 
             if score_value == 0:
+                screen.blit(first_screen, first_screen_rect)
+                screen.blit(intro_cat, intro_cat_rect)
+                screen.blit(intro_caterpillar, intro_caterpillar_rect)
+                screen.blit(cat_text, cat_text_rect)
+                screen.blit(caterpillar_text, caterpillar_text_rect)
+
                 screen.blit(game_name, game_name_rect)
                 screen.blit(message_text, message_text_rect)
             else:
+                screen.blit(first_screen, first_screen_rect)
                 display_score(score_value, 1)
                 screen.blit(score_text, score_text_rect)
                 screen.blit(restart_text, restart_text_rect)
