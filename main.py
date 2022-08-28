@@ -3,7 +3,6 @@ import os
 from sys import exit
 from random import randint
 
-
 def obstacle(obstacle_list, score):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
@@ -53,10 +52,10 @@ if __name__ == '__main__':
 
     obstacle_rect_list = []
 
-    cat_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/pixil-frame-0.png"))
-    cat_surface = pygame.transform.scale(cat_surface, (80, 110))
-    cat_rect = cat_surface.get_rect(center=(150, -100))
-    cat_gravity = 0
+    player_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/pixil-frame-0.png"))
+    player_surface = pygame.transform.scale(player_surface, (80, 110))
+    player_rect = player_surface.get_rect(center=(150, -100))
+    player_gravity = 0
 
     grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
     grass_surface = pygame.transform.scale(grass_surface, (800, 135))
@@ -96,8 +95,8 @@ if __name__ == '__main__':
             if game_active:
                 # if event.type == pygame.MOUSEMOTION:
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE and cat_rect.bottom >= 340:
-                        cat_gravity = -23
+                    if event.key == pygame.K_SPACE and player_rect.bottom >= 340:
+                        player_gravity = -23
             else:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
                     game_active = True
@@ -110,19 +109,19 @@ if __name__ == '__main__':
         if game_active:
             display_score(score_value, 0)
 
-            cat_gravity += 1
-            cat_rect.y += cat_gravity
+            player_gravity += 1
+            player_rect.y += player_gravity
 
-            if cat_rect.bottom >= 340:
-                cat_rect.bottom = 340
+            if player_rect.bottom >= 340:
+                player_rect.bottom = 340
 
             screen.blit(flower_surface, flower_rect)
-            screen.blit(cat_surface, cat_rect)
+            screen.blit(player_surface, player_rect)
             screen.blit(grass_surface, grass_rect)
 
             obstacle_rect_list, score_value = obstacle(obstacle_rect_list, score_value)
 
-            game_active = collisions(cat_rect, obstacle_rect_list)
+            game_active = collisions(player_rect, obstacle_rect_list)
         else:
             screen.blit(first_screen, first_screen_rect)
             obstacle_rect_list.clear()
