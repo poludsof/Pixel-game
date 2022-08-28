@@ -4,6 +4,17 @@ from sys import exit
 from random import randint
 
 
+def animation():
+    global player_index, caterpillar_surface
+
+    if caterpillar_rect.bottom < 340:
+        caterpillar_surface = caterpillar_jump
+    else:
+        player_index += 0.1
+        if player_index >= 2: player_index = 0
+        caterpillar_surface = caterpillar_walk[int(player_index)]
+
+
 def obstacle(obstacle_list, score):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
@@ -53,8 +64,17 @@ if __name__ == '__main__':
 
     obstacle_rect_list = []
 
-    caterpillar_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar.png"))
-    caterpillar_surface = pygame.transform.scale(caterpillar_surface, (130, 35))
+    player_index = 1
+
+    caterpillar_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk1.png"))
+    caterpillar_walk1 = pygame.transform.scale(caterpillar_walk1, (150, 45))
+    caterpillar_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk2.png"))
+    caterpillar_walk2 = pygame.transform.scale(caterpillar_walk2, (120, 45))
+    caterpillar_walk = [caterpillar_walk1, caterpillar_walk2]
+    caterpillar_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_jump.png"))
+    caterpillar_jump = pygame.transform.scale(caterpillar_jump, (190, 130))
+
+    caterpillar_surface = caterpillar_walk[player_index]
     caterpillar_rect = caterpillar_surface.get_rect(center=(150, -100))
     caterpillar_gravity = 0
 
@@ -125,6 +145,7 @@ if __name__ == '__main__':
                 caterpillar_rect.bottom = 340
 
             screen.blit(flower_surface, flower_rect)
+            animation()
             screen.blit(caterpillar_surface, caterpillar_rect)
             screen.blit(grass_surface, grass_rect)
 
