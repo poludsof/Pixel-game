@@ -3,6 +3,7 @@ import os
 from sys import exit
 from random import randint
 
+
 def animation():
     global player_index, player_surface
 
@@ -52,7 +53,6 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     game_active = False
 
-    #font = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/ddd.otf"), 70)
     font_30 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 30)
     font_70 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 70)
     font_100 = pygame.font.Font(os.path.join(os.path.dirname(__file__), "font/pizza.TTF"), 100)
@@ -66,20 +66,20 @@ if __name__ == '__main__':
     intro_cat = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk1.png"))
     intro_cat = pygame.transform.scale(intro_cat, (100, 150))
     intro_cat_rect = intro_cat.get_rect(center=(280, 230))
-    intro_caterpillar = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk1.png"))
+    intro_caterpillar = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_walk1.png"))
     intro_caterpillar = pygame.transform.scale(intro_caterpillar, (130, 70))
     intro_caterpillar_rect = intro_caterpillar.get_rect(center=(480, 240))
 
-    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk1.png"))
+    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_walk1.png"))
     player_walk1 = pygame.transform.scale(player_walk1, (80, 110))
-    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_walk2.png"))
+    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_walk2.png"))
     player_walk2 = pygame.transform.scale(player_walk2, (80, 110))
-    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpillar_jump.png"))
+    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_jump.png"))
     player_jump = pygame.transform.scale(player_jump, (80, 110))
     player_rect = player_walk1.get_rect(center=(150, -100))
+    player_walk = [player_walk1, player_walk2]
     player_gravity = 0
     player_index = 0
-    player_walk = [player_walk1, player_walk2]
     player_surface = player_walk[player_index]
 
     grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
@@ -124,15 +124,38 @@ if __name__ == '__main__':
                 exit()
 
             if game_active:
-                # if event.type == pygame.MOUSEMOTION:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE and player_rect.bottom >= 340:
-                        player_gravity = -23
+                        player_gravity = -25
             else:
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_LSHIFT:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                     game_active = True
                     score_value = 0
                     flower_rect.left = 800
+                    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk1.png"))
+                    player_walk1 = pygame.transform.scale(player_walk1, (80, 110))
+                    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_walk2.png"))
+                    player_walk2 = pygame.transform.scale(player_walk2, (80, 110))
+                    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/cat_jump.png"))
+                    player_jump = pygame.transform.scale(player_jump, (80, 110))
+                    player_rect = player_walk1.get_rect(center=(150, -100))
+                    player_walk = [player_walk1, player_walk2]
+                    player_surface = player_walk[int(player_index)]
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
+                    game_active = True
+                    score_value = 0
+                    flower_rect.left = 800
+                    player_walk1 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_walk1.png"))
+                    player_walk1 = pygame.transform.scale(player_walk1, (120, 40))
+                    player_walk2 = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_walk2.png"))
+                    player_walk2 = pygame.transform.scale(player_walk2, (100, 40))
+                    player_jump = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/caterpl_jump.png"))
+                    player_jump = pygame.transform.scale(player_jump, (140, 100))
+                    player_rect = player_walk1.get_rect(center=(150, -100))
+                    player_walk = [player_walk1, player_walk2]
+                    player_surface = player_walk[int(player_index)]
+
             if event.type == timer_flowers and game_active:
                 obstacle_rect_list.append(flower_surface.get_rect(bottomright=(randint(900, 1000), 340)))
 
