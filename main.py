@@ -39,11 +39,11 @@ def collisions(man, obstacles):
 
 def display_score(score_value, num_function):
     if num_function == 1:
-        score = font_70.render("score is  " + str(score_value), False, "paleturquoise")
-        score_rect = score.get_rect(center=(400, 375))
+        score = font_70.render("score is  " + str(score_value), False, (98, 169, 199))
+        score_rect = score.get_rect(center=(400, 125))
         screen.blit(score, score_rect)
     else:
-        score = font_70.render("score " + str(score_value), True, (74, 171, 134))
+        score = font_70.render("score  " + str(score_value), True, (74, 171, 134))
         screen.blit(score, (270, 50))
 
 
@@ -109,9 +109,9 @@ if __name__ == '__main__':
     caterpillar_text_rect = caterpillar_text.get_rect(center=(480, 325))
 
     score_text = font_100.render("game over", False, 15)
-    score_text_rect = score_text.get_rect(center=(400, 70))
+    score_text_rect = score_text.get_rect(center=(400, 60))
 
-    restart_text = font_30.render("to  start again  press   LEFT  SHIFT", False, (0, 0, 0))
+    restart_text = font_30.render("to  start again  press   F   or   A", False, (0, 0, 0))
     restart_text_rect = restart_text.get_rect(center=(400, 420))
 
     timer_flowers = pygame.USEREVENT + 1
@@ -179,18 +179,16 @@ if __name__ == '__main__':
             game_active = collisions(player_rect, obstacle_rect_list)
         else:
             obstacle_rect_list.clear()
+            screen.blit(first_screen, first_screen_rect)
+            screen.blit(intro_cat, intro_cat_rect)
+            screen.blit(intro_caterpillar, intro_caterpillar_rect)
+            screen.blit(cat_text, cat_text_rect)
+            screen.blit(caterpillar_text, caterpillar_text_rect)
 
             if score_value == 0:
-                screen.blit(first_screen, first_screen_rect)
-                screen.blit(intro_cat, intro_cat_rect)
-                screen.blit(intro_caterpillar, intro_caterpillar_rect)
-                screen.blit(cat_text, cat_text_rect)
-                screen.blit(caterpillar_text, caterpillar_text_rect)
-
                 screen.blit(game_name, game_name_rect)
                 screen.blit(message_text, message_text_rect)
             else:
-                screen.blit(first_screen, first_screen_rect)
                 display_score(score_value, 1)
                 screen.blit(score_text, score_text_rect)
                 screen.blit(restart_text, restart_text_rect)
