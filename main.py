@@ -76,7 +76,7 @@ if __name__ == '__main__':
     player_gravity = 0
     player_index = 0
 
-    grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass2.png"))
+    grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grasslong.png"))
     grass_surface = pygame.transform.scale(grass_surface, (1500, 450))
     grass_rect = grass_surface.get_rect(topleft=(0, -1))
 
