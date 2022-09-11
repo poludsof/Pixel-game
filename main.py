@@ -76,9 +76,9 @@ if __name__ == '__main__':
     player_gravity = 0
     player_index = 0
 
-    grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass.png"))
-    grass_surface = pygame.transform.scale(grass_surface, (800, 135))
-    grass_rect = grass_surface.get_rect(topleft=(0, 340))
+    grass_surface = pygame.image.load(os.path.join(os.path.dirname(__file__), "image/grass2.png"))
+    grass_surface = pygame.transform.scale(grass_surface, (1500, 450))
+    grass_rect = grass_surface.get_rect(topleft=(0, -1))
 
     screen = pygame.display.set_mode((800, 450))
 
@@ -159,6 +159,9 @@ if __name__ == '__main__':
 
             player_gravity += 1
             player_rect.y += player_gravity
+
+            grass_rect.x -= 5
+            if grass_rect.right < 800: grass_rect.left = 0
 
             if player_rect.bottom >= 340:
                 player_rect.bottom = 340
