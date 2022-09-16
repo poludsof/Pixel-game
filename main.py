@@ -160,7 +160,7 @@ if __name__ == '__main__':
             player_gravity += 1
             player_rect.y += player_gravity
 
-            grass_rect.x -= 5
+            grass_rect.x -= 5 + score_value / 2
             if grass_rect.right < 800: grass_rect.left = 0
 
             if player_rect.bottom >= 340:
