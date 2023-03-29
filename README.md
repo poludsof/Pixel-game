@@ -2,7 +2,7 @@
 # Pixel Game
 
 <p align="center">
-  <img width="460" height="300" src="(https://github.com/poludsof/Pixel-game/blob/master/intro.gif0">
+  <img width="460" height="300" src="https://github.com/poludsof/Pixel-game/blob/master/intro.gif0">
 </p>
 <!-- ![](https://github.com/poludsof/Pixel-game/blob/master/intro.gif) -->
 
