@@ -10,7 +10,7 @@
 This game is an endless runner in which the player controls a character who runs along an infinitely generated path. The goal of the game is to last as long as possible by jumping over obstacles and improving the score to earn as many points as possible.
 ## Rules
 
-- To start playing, the player should choose one of two characters. The character will automatically start running in a straight line.
+- To start playing, the player should choose one of two characters. :black_cat: :bug: The character will automatically start running in a straight line.
 
 - To jump over the flower, the player should press `space` and the character will jump. 
 
